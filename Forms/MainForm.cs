@@ -34,7 +34,7 @@ namespace portal_demo_essentials.Forms
 
             FormClosing += MainForm_FormClosing;
         }
-
+        
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Program.Settings.WriteSettings();

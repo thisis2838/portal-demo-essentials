@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,6 +32,8 @@ namespace portal_demo_essentials
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            new Thread(new ThreadStart(() => CheckNewVersion())).Start();
+
             Settings = new SettingsHandler();
 
             FormsMain = new MainForm();
@@ -49,6 +53,25 @@ namespace portal_demo_essentials
 
             Application.Run(FormsMain);
             worker.Abort();
+        }
+
+        private static void CheckNewVersion()
+        {
+            using (var web = new WebClient())
+            {
+                try
+                {
+                    string ver = web.DownloadString(@"https://raw.githubusercontent.com/thisis2838/portal-demo-essentials/main/current_version.txt");
+                    Version cur = typeof(Program).Assembly.GetName().Version;
+                    if (Version.Parse(ver) > cur)
+                    {
+                        if (MessageBox.Show($"A new update is available (new {ver}, cur: {cur})\r\nWould you like to open the download page?", "Update Available", MessageBoxButtons.YesNo)
+                            == DialogResult.Yes)
+                            Process.Start(@"https://github.com/thisis2838/portal-demo-essentials/releases");
+                    }
+                }
+                catch { }
+            }
         }
     }
 }

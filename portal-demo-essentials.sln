@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31313.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "portal-demo-essentials", "portal-demo-essentials.csproj", "{0606A162-5FBB-4D1B-BCD6-0DA3C57FEF67}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0606A162-5FBB-4D1B-BCD6-0DA3C57FEF67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0606A162-5FBB-4D1B-BCD6-0DA3C57FEF67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0606A162-5FBB-4D1B-BCD6-0DA3C57FEF67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0606A162-5FBB-4D1B-BCD6-0DA3C57FEF67}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22DF17A7-2582-41F6-A3AC-9B191526CA06}
+	EndGlobalSection
+EndGlobal

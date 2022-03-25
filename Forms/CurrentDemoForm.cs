@@ -68,7 +68,7 @@ namespace portal_demo_essentials.Forms
             {
                 ThreadAction(this, () =>
                 {
-                    DispCurrentDemo.SetTime(-1);
+                    DispCurrentDemo.SetTime(Defaults.InitTick);
                     DispPrevDemo.SetName((string)e.Data["name"]);
                     DispPrevDemo.FinalTime(((DemoFile)e.Data["demo"]).AdjustedTicks);
                 });

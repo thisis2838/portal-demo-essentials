@@ -54,6 +54,18 @@
     <Compile Include="Demo\DemoReorder.cs" />
     <Compile Include="Demo\MapDemoSegment.cs" />
     <Compile Include="Events.cs" />
+    <Compile Include="Forms\CompactView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CompactView.Designer.cs">
+      <DependentUpon>CompactView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Components\MinimalTimesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Components\MinimalTimesForm.Designer.cs">
+      <DependentUpon>MinimalTimesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Components\PathBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +127,12 @@
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="Forms\AnalyzeForm.resx">
       <DependentUpon>AnalyzeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CompactView.resx">
+      <DependentUpon>CompactView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Components\MinimalTimesForm.resx">
+      <DependentUpon>MinimalTimesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Components\PathBox.resx">
       <DependentUpon>PathBox.cs</DependentUpon>

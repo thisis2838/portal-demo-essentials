@@ -35,6 +35,7 @@ namespace portal_demo_essentials.Forms
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.butOpenCompact = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
@@ -85,6 +86,7 @@ namespace portal_demo_essentials.Forms
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.butOpenCompact);
             this.tabPage3.Controls.Add(this.tabControl1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -93,6 +95,16 @@ namespace portal_demo_essentials.Forms
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Current Demos";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // butOpenCompact
+            // 
+            this.butOpenCompact.Location = new System.Drawing.Point(548, 2);
+            this.butOpenCompact.Name = "butOpenCompact";
+            this.butOpenCompact.Size = new System.Drawing.Size(83, 23);
+            this.butOpenCompact.TabIndex = 2;
+            this.butOpenCompact.Text = "Compact View";
+            this.butOpenCompact.UseVisualStyleBackColor = true;
+            this.butOpenCompact.Click += new System.EventHandler(this.butOpenCompact_Click);
             // 
             // tabPage4
             // 
@@ -141,6 +153,7 @@ namespace portal_demo_essentials.Forms
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Button butOpenCompact;
     }
 }
 

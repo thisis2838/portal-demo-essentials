@@ -20,6 +20,7 @@ namespace portal_demo_essentials
         public static AnalyzeForm FormsAnalyze;
         public static SettingAboutForm FormsSettingsAbout;
         public static SettingsHandler Settings;
+        public static CompactView FormsCompact;
 
         private static MemoryMonitor _monitor;
 
@@ -41,6 +42,7 @@ namespace portal_demo_essentials
             FormsAnalyze = new AnalyzeForm();
             FormsCurRun = new CurrentRunForm();
             FormsSettingsAbout = new SettingAboutForm();
+            FormsCompact = new CompactView();
 
             Settings.LoadSettings();
 

@@ -47,5 +47,10 @@ namespace portal_demo_essentials.Forms
             this.tabPage2.Controls.Add(FormsCurRun);
             this.tabPage5.Controls.Add(FormsSettingsAbout);
         }
+
+        private void butOpenCompact_Click(object sender, EventArgs e)
+        {
+            Program.FormsCompact.Show();
+        }
     }
 }

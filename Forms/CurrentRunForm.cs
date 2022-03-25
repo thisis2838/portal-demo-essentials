@@ -18,8 +18,9 @@ namespace portal_demo_essentials.Forms
 {
     public partial class CurrentRunForm : Form
     {
-        private RunListForm _run = new RunListForm(true);
+        public RunListForm Run = new RunListForm(true);
         private TimesForm _timer = new TimesForm();
+
         public CurrentRunForm()
         {
             InitializeComponent();
@@ -27,17 +28,17 @@ namespace portal_demo_essentials.Forms
             Visible = true;
             Location = new Point(0, 0);
 
-            _run.Size = panRuns.Size;
+            Run.Size = panRuns.Size;
             _timer.Size = panTimer.Size;
-            panRuns.Controls.Add(_run);
+            panRuns.Controls.Add(Run);
             panTimer.Controls.Add(_timer);
 
             FinishDemoRecording += (object s, CommonEventArgs e) =>
             {
                 ThreadAction(this, () =>
                 {
-                    _run.Init(((DemoFile)e.Data["demo"]).FilePath);
-                    _timer.SetTime(_run.TotalTicks);
+                    Run.Init(((DemoFile)e.Data["demo"]).FilePath);
+                    _timer.SetTime(Run.TotalTicks);
                     _timer.Flash();
                 });
             };
@@ -46,8 +47,8 @@ namespace portal_demo_essentials.Forms
             {
                 ThreadAction(this, () =>
                 {
-                    if (Path.GetDirectoryName((string)e.Data["path"]) != _run.FilePath)
-                        _run.Reset();
+                if (Path.GetDirectoryName((string)e.Data["path"]) != Run.FilePath)
+                    Run.Reset();
                 });
             };
 
@@ -55,7 +56,7 @@ namespace portal_demo_essentials.Forms
             {
                 ThreadAction(this, () =>
                 {
-                    _timer.SetTime(_run.TotalTicks + (int)e.Data["time"]);
+                    _timer.SetTime(Run.TotalTicks + (int)e.Data["time"]);
                 });
             };
         }

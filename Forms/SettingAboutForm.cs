@@ -12,28 +12,26 @@ using static portal_demo_essentials.Program;
 
 namespace portal_demo_essentials.Forms
 {
-    public partial class SettingAboutForm : Form
+    public partial class SettingAboutForm : UserControl
     {
-        public string MapOrderFile => _boxMapOrderFile.Path;
-        private PathBox _boxMapOrderFile = new PathBox("Map Order File");
+        public string MapOrderFile => boxMapOrderFile.Path;
+        public bool ZerothTick => chkZerothTick.Checked;
+
         public SettingAboutForm()
         {
             InitializeComponent();
-            TopLevel = false;
-            Visible = true;
-            Location = new Point(0, 0);
 
             labVer.Text = $"Version : {Defaults.Version}";
 
-            tabSettings.Controls.Add(_boxMapOrderFile, 0, 0);
-
-            gSettings.Size = new Size(gSettings.Width, (tabSettings.RowCount - 1) * 34 + 19);
-            gAbout.Location = new Point(gAbout.Location.X, 12 + gSettings.Size.Height + 6);
-
-            Settings.SubscribedSettings.Add(new SettingEntry(
+            Settings.Subscribe(
                 "map_order_file",
-                s => _boxMapOrderFile.Path = s,
-                () => _boxMapOrderFile.Path));
+                s => boxMapOrderFile.Path = s,
+                () => boxMapOrderFile.Path);
+
+            Settings.Subscribe(
+                "zeroth_tick",
+                s => { if (bool.TryParse(s, out bool e)) chkZerothTick.Checked = e; },
+                () => chkZerothTick.Checked.ToString());
         }
 
         private void SettingAboutForm_Load(object sender, EventArgs e)

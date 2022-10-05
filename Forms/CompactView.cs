@@ -12,6 +12,7 @@ using static portal_demo_essentials.Events;
 using static portal_demo_essentials.Defaults;
 using static portal_demo_essentials.Utils;
 using portal_demo_essentials.Demo;
+using System.IO;
 
 namespace portal_demo_essentials.Forms
 {
@@ -28,45 +29,62 @@ namespace portal_demo_essentials.Forms
             this.TopMost = true;
 
             _curDem.Dock = _prevDem.Dock = _timer.Dock = DockStyle.Fill;
+            this.labDemoName.Text = this.labIndex.Text = "";
 
-            this.tableLayoutPanel1.Controls.Add(_curDem, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(_prevDem, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(_curDem, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(_prevDem, 2, 1);
             this.tableLayoutPanel1.Controls.Add(_timer, 2, 2);
             this.tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
 
             this.FormClosing += CompactView_FormClosing;
 
-            FinishDemoRecording += (s, e) =>
+            _curDem.ScaleChanged += (s, e) =>
             {
-                ThreadAction(this, () =>
-                {
-                    _curDem.SetTime(InitTick);
-                    _prevDem.FinalTime(((DemoFile)e.Data["demo"]).AdjustedTicks);
-                });
+                label2.Text = e.Minified ? "Cur." : "Cur\nDemo";
+            };
+            _prevDem.ScaleChanged += (s, e) =>
+            {
+                label1.Text = e.Minified ? "Prev." : "Prev\nDemo";
             };
 
             FinishDemoRecording += (s, e) =>
             {
-                ThreadAction(this, () =>
+                _curDem.ThreadAction(() => { _curDem.SetTime(InitTick); });
+                _prevDem.ThreadAction(() => { _prevDem.FinalTime(((DemoFile)e.Data["demo"]).AdjustedTicks); });
+                _timer.ThreadAction(() =>
                 {
-                    _curDem.SetTime(InitTick);
-                    _prevDem.FinalTime(((DemoFile)e.Data["demo"]).AdjustedTicks);
-
                     _timer.SetTime(Program.FormsCurRun.Run.TotalTicks);
                     _timer.Flash();
+                });
+                this.ThreadAction(() =>
+                {
+                    labDemoName.Text = "";
+                    labIndex.Text = $"{Program.FormsCurRun.Run.DemoCount}";
                 });
             };
 
             CurrentDemoTime += (s, e) =>
             {
-                ThreadAction(this, () =>
+                _timer.ThreadAction(() =>
                 {
                     _timer.SetTime(Program.FormsCurRun.Run.TotalTicks + (int)e.Data["time"]);
+                });
+                _curDem.ThreadAction(() =>
+                {
                     _curDem.SetTime((int)e.Data["time"]);
                 });
             };
 
-            Program.Settings.SubscribedSettings.Add(new SettingEntry(
+            BeginDemoRecording += (object s, CommonEventArgs e) =>
+            {
+                this.ThreadAction(() =>
+                {
+                    labDemoName.Text = Path.GetFileName($"{((string)e.Data["name"])}");
+                    labIndex.Text = $"{Program.FormsCurRun.Run.DemoCount + 1}";
+                });
+            };
+
+            Program.Settings.Subscribe(
                 "window_size",
                 (s) =>
                 {
@@ -84,7 +102,7 @@ namespace portal_demo_essentials.Forms
                     }
                     catch { return; }
                 },
-                () => $"{Width}x{Height}"));
+                () => $"{Width}x{Height}");
         }
 
         private void CompactView_FormClosing(object sender, FormClosingEventArgs e)

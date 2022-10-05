@@ -8,6 +8,7 @@ namespace portal_demo_essentials
 {
     static class Defaults
     {
+        public const int FlashDuration = 350;
         public static readonly double TickRate = 0.015d;
         public static readonly string EmptyUI = "--";
         public static readonly string TimeSpanLong = @"h\:mm\:ss\.fff";

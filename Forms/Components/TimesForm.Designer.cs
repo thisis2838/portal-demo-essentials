@@ -139,7 +139,6 @@ namespace portal_demo_essentials.Forms.Components
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(590, 91);
             this.Controls.Add(this.groupBox4);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "TimesForm";
             this.Text = "TimesForm";
             this.groupBox4.ResumeLayout(false);

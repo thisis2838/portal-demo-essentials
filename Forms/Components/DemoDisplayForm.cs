@@ -11,15 +11,14 @@ using static portal_demo_essentials.Defaults;
 
 namespace portal_demo_essentials.Forms.Components
 {
-    public partial class DemoDisplayForm : Form
+    public partial class DemoDisplayForm : UserControl
     {
         private TimesForm _timer = new TimesForm();
 
         public DemoDisplayForm()
         {
             InitializeComponent();
-            TopLevel = false;
-            Visible = true;
+
             Dock = DockStyle.Fill;
 
             panTimer.Controls.Add(_timer);

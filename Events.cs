@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace portal_demo_essentials
 {
-    static class Events
+    public static class Events
     {
-
         public static EventHandler<CommonEventArgs> FoundGameProcess;
         public static EventHandler<CommonEventArgs> LostGameProcess;
         public static EventHandler<CommonEventArgs> FinishDemoRecording;

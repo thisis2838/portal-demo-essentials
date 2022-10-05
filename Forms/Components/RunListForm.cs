@@ -12,12 +12,19 @@ using System.Windows.Forms;
 
 namespace portal_demo_essentials.Forms.Components
 {
-    public partial class RunListForm : Form
+    public partial class RunListForm : UserControl
     {
-        public long TotalTicks = Defaults.InitTick;
+        private long _totalTicks = 0;
+        public long TotalTicks
+        {
+            get
+            {
+                return _totalTicks;
+            }
+        }
         public EventHandler<CommonEventArgs> SelectedCell;
         public string FilePath { get; private set; } = "";
-
+        public int DemoCount => _demos.Count;
 
         private List<DemoFile> _demos = new List<DemoFile>();
         private List<MapDemoSegment> _maps = new List<MapDemoSegment>();
@@ -26,9 +33,6 @@ namespace portal_demo_essentials.Forms.Components
         public RunListForm(bool autoSelectLast = false)
         {
             InitializeComponent();
-            TopLevel = false;
-            Visible = true;
-            Location = new Point(0, 0);
 
             _autoSelectLast = autoSelectLast;
 
@@ -99,8 +103,20 @@ namespace portal_demo_essentials.Forms.Components
             _demos.Clear();
             _maps.Clear();
 
-            TotalTicks = 0;
+            _totalTicks = 0;
             PopulateDemos(_demos.ToArray());
+
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            _maps.Clear();
+            _demos.ForEach(x => x.Refresh());
+            _demos.GroupBy(x => x.MapName).Select(x => x.ToList()).ToList().ForEach(x => _maps.Add(new MapDemoSegment(x)));
+            if (DemoCount > 1)
+                _totalTicks = _demos.Sum(x => x.AdjustedTicks);
+            else _totalTicks = _demos.FirstOrDefault()?.AdjustedTicks ?? 0;
         }
 
         private void Init(List<DemoFile> files, bool forceReset = true)
@@ -113,8 +129,8 @@ namespace portal_demo_essentials.Forms.Components
             {
                 _demos.Add(x);
             });
-            _demos.GroupBy(x => x.MapName).Select(x => x.ToList()).ToList().ForEach(x => _maps.Add(new MapDemoSegment(x)));
-            TotalTicks = _demos.Sum(x => x.AdjustedTicks);
+
+            Refresh();
 
             if (File.Exists(Program.FormsSettingsAbout.MapOrderFile))
             {
@@ -130,13 +146,20 @@ namespace portal_demo_essentials.Forms.Components
         {
             List<DemoFile> demos = new List<DemoFile>();
 
+            if (forceReset)
+                Reset();
+
             foreach (var file in files)
             {
                 try
                 {
+                    if (_demos.Any(x => x.FilePath == file))
+                        continue;
+                        
                     var demo = new DemoFile(file);
                     demos.Add(demo);
-                } catch { continue; }
+                } 
+                catch { continue; }
 
             }
 

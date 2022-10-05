@@ -182,7 +182,6 @@ namespace portal_demo_essentials.Forms.Components
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(604, 186);
             this.Controls.Add(this.tabControl1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RunListForm";
             this.Text = "RunListForm";
             ((System.ComponentModel.ISupportInitialize)(this.dgvDemos)).EndInit();

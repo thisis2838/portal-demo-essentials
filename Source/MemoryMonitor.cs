@@ -16,17 +16,23 @@ namespace portal_demo_essentials.Source
 {
     class MemoryMonitor
     {
+        public Process Game;
+        private MemoryWatcherList _list = new MemoryWatcherList();
+
         private SigScanTarget _gameDirTarget;
         private SigScanTarget _demoRecorderTarget;
+        private int _startTickOffset = -1;
+        private string _gameDir;
+
         private MemoryWatcher<bool> _demoIsRecording;
         private MemoryWatcher<int> _demoIndex;
-        private StringWatcher _demoName;
-        private int _startTickOffset = -1;
-        private Process _game;
-        private string _gameDir;
+        private MemoryWatcher<int> _demoFrame;
+
+        private string _demoName;
+        private IntPtr _demoNamePtr = IntPtr.Zero;
+
         private MemoryWatcher<int> _hostTick;
         private MemoryWatcher<int> _startTick;
-
 
         public MemoryMonitor()
         {
@@ -67,7 +73,7 @@ namespace portal_demo_essentials.Source
                 try
                 {
                     retry:
-                    _game = Process.GetProcesses()
+                    Game = Process.GetProcesses()
                         .FirstOrDefault(x => GameProcessNames.Contains(x.ProcessName.ToLower()));
 
                     while (!Scan())
@@ -86,14 +92,14 @@ namespace portal_demo_essentials.Source
 
         private bool Scan()
         {
-            if (_game == null || _game.HasExited)
+            if (Game == null || Game.HasExited)
                 return false;
 
-            ProcessModuleWow64Safe engine = _game.ModulesWow64Safe().FirstOrDefault(x => x.ModuleName.ToLower() == "engine.dll");
+            ProcessModuleWow64Safe engine = Game.ModulesWow64Safe().FirstOrDefault(x => x.ModuleName.ToLower() == "engine.dll");
             if (engine == null)
                 return false;
 
-            SignatureScanner scanner = new SignatureScanner(_game, engine.BaseAddress, engine.ModuleMemorySize);
+            SignatureScanner scanner = new SignatureScanner(Game, engine.BaseAddress, engine.ModuleMemorySize);
 
             IntPtr demoRecorderPtr, gameDirPtr, hostTickPtr = IntPtr.Zero;
 
@@ -102,7 +108,7 @@ namespace portal_demo_essentials.Source
             if (gameDirPtr == IntPtr.Zero)
                 return false;
             else
-                _gameDir = _game.ReadString(gameDirPtr, 260);
+                _gameDir = Game.ReadString(gameDirPtr, 260);
 
             if (string.IsNullOrWhiteSpace(_gameDir) || !Directory.Exists(_gameDir))
                 return false;
@@ -117,11 +123,11 @@ namespace portal_demo_essentials.Source
             #region HOST TICK & START TICK
             for (int i = 0; i < 10; i++)
             {
-                SignatureScanner tmpScanner = new SignatureScanner(_game, _game.ReadPointer(_game.ReadPointer(demoRecorderPtr) + i * 4), 0x100);
-                SigScanTarget StartTickAccess = new SigScanTarget(2, $"2B ?? ?? ?? 00 00");
+                SignatureScanner tmpScanner = new SignatureScanner(Game, Game.ReadPointer(Game.ReadPointer(demoRecorderPtr) + i * 4), 0x100);
+                SigScanTarget startTickAccess = new SigScanTarget(2, $"2B ?? ?? ?? 00 00");
                 SigScanTarget hostTickAccess = new SigScanTarget(1, "A1");
                 hostTickAccess.OnFound = (f_proc, f_scanner, f_ptr) => f_proc.ReadPointer(f_ptr);
-                StartTickAccess.OnFound = (f_proc, f_scanner, f_ptr) =>
+                startTickAccess.OnFound = (f_proc, f_scanner, f_ptr) =>
                 {
                     IntPtr hostTickOffPtr = f_scanner.Scan(hostTickAccess);
                     if (hostTickOffPtr != IntPtr.Zero)
@@ -132,7 +138,7 @@ namespace portal_demo_essentials.Source
                     return IntPtr.Zero;
                 };
 
-                IntPtr ptr = tmpScanner.Scan(StartTickAccess);
+                IntPtr ptr = tmpScanner.Scan(startTickAccess);
                 if (ptr == IntPtr.Zero)
                     continue;
                 else
@@ -145,9 +151,24 @@ namespace portal_demo_essentials.Source
 
             _demoIsRecording = new MemoryWatcher<bool>(demoRecorderPtr + _startTickOffset + 4 + 260 + 1 + 1);
             _demoIndex = new MemoryWatcher<int>(demoRecorderPtr + _startTickOffset + 4 + 260 + 1 + 1 + 2);
-            _demoName = new StringWatcher(demoRecorderPtr + _startTickOffset + 4, 100);
+            _demoNamePtr = demoRecorderPtr + 0x4;
             _hostTick = new MemoryWatcher<int>(hostTickPtr);
             _startTick = new MemoryWatcher<int>(demoRecorderPtr + _startTickOffset);
+
+            IntPtr isRecPtr = demoRecorderPtr + _startTickOffset + 4 + 260 + 2;
+            IntPtr framePtr = isRecPtr + 2 + 4;
+            if (Game.ReadValue<bool>(isRecPtr) == false && Game.ReadValue<int>(framePtr) == 0)
+                Game.WriteValue(framePtr, 1);
+            _demoFrame = new MemoryWatcher<int>(framePtr);
+
+            _list = new MemoryWatcherList()
+            {
+                _demoIsRecording,
+                _demoIndex,
+                _hostTick,
+                _startTick,
+                _demoFrame
+            };
 
             Monitor();
 
@@ -156,61 +177,48 @@ namespace portal_demo_essentials.Source
 
         private void Monitor()
         {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-
             FoundGameProcess?.Invoke(null, null);
-            bool first = true;
 
             while (true)
             {
-                if (_game == null || _game.HasExited)
+                if (Game == null || Game.HasExited)
                     break;
 
-                _demoIsRecording.Update(_game);
-                _demoIndex.Update(_game);
-                _demoName.Update(_game);
-                _hostTick.Update(_game);
-                _startTick.Update(_game);
+                _list.UpdateAll(Game);
+
+                var diff = _hostTick.Current - _startTick.Current;
+                diff = diff < 0 ? 0 : diff;
+                if (Program.FormsSettingsAbout.ZerothTick)
+                    diff++;
 
                 if (_demoIsRecording.Current)
-                    CurrentDemoTime.Invoke(null, new CommonEventArgs(("time", _hostTick.Current - _startTick.Current)));
+                    CurrentDemoTime.Invoke(null, new CommonEventArgs(("time", diff)));
+
+                string name;
+                if ((name = Game.ReadString(_demoNamePtr, 260)) != "demoheader.tmp")
+                    _demoName = name;
+
+                if (_demoIsRecording.Current && (_demoFrame.Current < _demoFrame.Old))
+                {
+                    BeginDemoRecording?.Invoke(null, new CommonEventArgs(
+                        ("name", Path.GetFileNameWithoutExtension(_demoName)),
+                        ("path", Path.GetFullPath(Path.Combine(_gameDir, _demoName)))
+                        ));
+                }
 
                 bool switched = _demoIsRecording.Current && _demoIndex.Current - _demoIndex.Old == 1 && _demoIndex.Current > 1;
-
-                if (_demoIsRecording.Changed || switched || first)
+                if ((!_demoIsRecording.Current && _demoIsRecording.Old) || switched)
                 {
-                    if (first)
-                        first = false;
+                    string path = Path.Combine(_gameDir, _demoName);
 
-                    if (_demoIsRecording.Current && !switched)
-                    {
-                        string name = _demoName.Current;
-                        if (_demoIndex.Current > 1)
-                            name += $"_{_demoIndex.Current}";
-
-                        BeginDemoRecording?.Invoke(null, new CommonEventArgs(
-                            ("name", name),
-                            ("path", Path.GetFullPath(Path.Combine(_gameDir, $"{name}.dem")))
-                            ));
-                    }
-                    else
-                    {
-                        string name = _demoName.Old;
-                        if (_demoIndex.Old > 1)
-                            name += $"_{_demoIndex.Old}";
-
-                        string path = Path.Combine(_gameDir, $"{name}.dem");
-
-                        if (File.Exists(path))
-                            FinishDemoRecording?.Invoke(null, new CommonEventArgs(
-                                ("demo", new DemoFile(path)),
-                                ("name", name)));
-                    }
+                    if (File.Exists(path))
+                        FinishDemoRecording?.Invoke(null, new CommonEventArgs(
+                            ("demo", new DemoFile(path)),
+                            ("name", Path.GetFileNameWithoutExtension(_demoName))));
                 }
 
                 if (_demoIsRecording.Current)
-                    CurrentDemoTime.Invoke(null, new CommonEventArgs(("time", _hostTick.Current - _startTick.Current)));
+                    CurrentDemoTime.Invoke(null, new CommonEventArgs(("time", diff)));
 
                 Thread.Sleep(10);
             }

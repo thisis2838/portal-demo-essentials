@@ -101,7 +101,6 @@ namespace portal_demo_essentials.Forms.Components
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(400, 50);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MinimalTimesForm";
             this.Text = "MinimalTimesForm";
             this.tableLayoutPanel1.ResumeLayout(false);

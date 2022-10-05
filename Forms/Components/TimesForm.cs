@@ -11,7 +11,7 @@ using static portal_demo_essentials.Defaults;
 
 namespace portal_demo_essentials.Forms.Components
 {
-    public partial class TimesForm : Form
+    public partial class TimesForm : UserControl
     {
         private ControlFlasher _tickFlasher;
         private ControlFlasher _humanFlasher;
@@ -20,9 +20,6 @@ namespace portal_demo_essentials.Forms.Components
         public TimesForm()
         {
             InitializeComponent();
-            TopLevel = false;
-            Visible = true;
-            Location = new Point(0, 0);
 
             _centerList = new List<(Label, Control)>()
             {
@@ -52,8 +49,8 @@ namespace portal_demo_essentials.Forms.Components
 
         public void Flash()
         {
-            _tickFlasher.FlashBackColor(750, Color.Green);
-            _humanFlasher.FlashBackColor(750, Color.Green);
+            _tickFlasher.FlashBackColor(Defaults.FlashDuration, Color.Green);
+            _humanFlasher.FlashBackColor(Defaults.FlashDuration, Color.Green);
         }
 
         public void SetTime(long ticks)

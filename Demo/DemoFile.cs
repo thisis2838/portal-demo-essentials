@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace portal_demo_essentials.Demo
 {
-    class DemoFile
+    public class DemoFile
     {
         public string Name = "";
         public string MapName = "";
@@ -24,10 +24,27 @@ namespace portal_demo_essentials.Demo
         public long AdjustedTicks = Defaults.InitTick;
         public string FilePath = "";
 
+        private bool _hasZeroTick = false;
+        public void Refresh()
+        {
+            if (Program.FormsSettingsAbout.ZerothTick != _hasZeroTick)
+            {
+                _hasZeroTick = Program.FormsSettingsAbout.ZerothTick;
+                TotalTicks += _hasZeroTick ? 1 : -1;
+            }
+
+            AdjustedTicks = TotalTicks;
+
+            if (StartTick != Defaults.InitTick)
+                AdjustedTicks = TotalTicks - StartTick;
+            if (EndTick != Defaults.InitTick)
+                AdjustedTicks -= TotalTicks - EndTick;
+        }
+
         public int StartTick { get; private set; } = Defaults.InitTick;
         public int EndTick { get; private set; } = Defaults.InitTick;
 
-        public DemoFile(string filePath, bool detectStart = true, bool detectEnd = true)
+        public DemoFile(string filePath)
         {
             filePath = Path.GetFullPath(filePath);
             if (!File.Exists(filePath))
@@ -69,16 +86,21 @@ namespace portal_demo_essentials.Demo
                             case 0x02:
                                 {
                                     br.BaseStream.Seek(4, SeekOrigin.Current);
-                                    float x = br.ReadSingle();
-                                    float y = br.ReadSingle();
-                                    float z = br.ReadSingle();
-
-                                    if (MapName == "testchmb_a_00" && StartTick == Defaults.InitTick && detectStart &&
-                                        x == -544f &&
-                                        y == -368.75f &&
-                                        z == 160f)
-                                        StartTick = tick + 1;
-
+                                    if (MapName.ToLower() == "testchmb_a_00")
+                                    {
+                                        float x = br.ReadSingle();
+                                        float y = br.ReadSingle();
+                                        float z = br.ReadSingle();
+                                        if (StartTick == Defaults.InitTick &&
+                                            x == -544f &&
+                                            y == -368.75f &&
+                                            z == 160f)
+                                            StartTick = tick + 1;
+                                    }
+                                    else
+                                    {
+                                        br.BaseStream.Seek(4 * 3, SeekOrigin.Current);
+                                    }
                                     br.BaseStream.Seek(68L, SeekOrigin.Current);
                                     var packetLen = br.ReadInt32();
                                     br.BaseStream.Seek(packetLen, SeekOrigin.Current);
@@ -87,12 +109,15 @@ namespace portal_demo_essentials.Demo
                             case 0x04: // console commands
                                 {
                                     var concmdLen = br.ReadInt32();
-                                    string cmd = ASCII.GetString(br.ReadBytes(concmdLen - 1)).Trim(new char[1]);
 
-                                    if (detectEnd && cmd.Trim() == "startneurotoxins 99999")
-                                        EndTick = tick + 1;
-
-                                    br.BaseStream.Seek(1, SeekOrigin.Current); // skip null terminator
+                                    if (MapName.ToLower() == "escape_02")
+                                    {
+                                        string cmd = ASCII.GetString(br.ReadBytes(concmdLen - 1)).Trim(new char[1]);
+                                        if (cmd.Trim() == "startneurotoxins 99999")
+                                            EndTick = tick + 1 + 1;
+                                        br.BaseStream.Seek(1, SeekOrigin.Current); // skip null terminator
+                                    }
+                                    else { br.BaseStream.Seek(concmdLen, SeekOrigin.Current); }
                                 }
                                 break;
                             case 0x05: // user commands
@@ -117,12 +142,7 @@ namespace portal_demo_essentials.Demo
                 }
             }
 
-            AdjustedTicks = TotalTicks;
-
-            if (StartTick != Defaults.InitTick)
-                AdjustedTicks = TotalTicks - StartTick;
-            if (EndTick != Defaults.InitTick)
-                AdjustedTicks -= TotalTicks - EndTick;
+            Refresh();
 
             string name = Path.GetFileNameWithoutExtension(filePath);
             var match = Regex.Match(name, $@"^(?:{MapName}_)([0-9]+)$", RegexOptions.IgnoreCase);

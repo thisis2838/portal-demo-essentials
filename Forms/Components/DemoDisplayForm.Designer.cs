@@ -69,7 +69,6 @@ namespace portal_demo_essentials.Forms.Components
             this.ClientSize = new System.Drawing.Size(593, 162);
             this.Controls.Add(this.panTimer);
             this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "DemoDisplayForm";
             this.Text = "DemoMainDisplay";
             this.groupBox1.ResumeLayout(false);

@@ -15,14 +15,13 @@ using portal_demo_essentials.Forms.Components;
 
 namespace portal_demo_essentials.Forms
 {
-    public partial class CurrentDemoForm : Form
+    public partial class CurrentDemoForm : UserControl
     {
         public DemoDisplayForm DispCurrentDemo = new DemoDisplayForm();
         public DemoDisplayForm DispPrevDemo = new DemoDisplayForm();
         public CurrentDemoForm()
         {
             InitializeComponent();
-            TopLevel = false;
             Visible = true;
             Location = new Point(0, 0);
 
@@ -34,7 +33,7 @@ namespace portal_demo_essentials.Forms
 
             FoundGameProcess += (s, e) =>
             {
-                ThreadAction(this, () => 
+                this.ThreadAction(() => 
                 { 
                     SetControls(true);
                 });
@@ -42,7 +41,7 @@ namespace portal_demo_essentials.Forms
 
             LostGameProcess += (s, e) =>
             {
-                ThreadAction(this, () =>
+                this.ThreadAction(() =>
                 {
                     SetControls(false);
                 });
@@ -50,7 +49,7 @@ namespace portal_demo_essentials.Forms
 
             CurrentDemoTime += (object s, CommonEventArgs e) =>
             {
-                ThreadAction(this, () =>
+                DispCurrentDemo.ThreadAction(() =>
                 {
                     DispCurrentDemo.SetTime((int)e.Data["time"]);
                 });
@@ -58,7 +57,7 @@ namespace portal_demo_essentials.Forms
 
             BeginDemoRecording += (object s, CommonEventArgs e) =>
             {
-                ThreadAction(this, () =>
+                DispCurrentDemo.ThreadAction(() =>
                 {
                     DispCurrentDemo.SetName((string)e.Data["name"]);
                 });
@@ -66,12 +65,13 @@ namespace portal_demo_essentials.Forms
 
             FinishDemoRecording += (object s, CommonEventArgs e) =>
             {
-                ThreadAction(this, () =>
-                {
-                    DispCurrentDemo.SetTime(Defaults.InitTick);
+                DispCurrentDemo.ThreadAction(() => { DispCurrentDemo.SetTime(Defaults.InitTick); });
+                DispPrevDemo.ThreadAction(() => 
+                { 
                     DispPrevDemo.SetName((string)e.Data["name"]);
                     DispPrevDemo.FinalTime(((DemoFile)e.Data["demo"]).AdjustedTicks);
                 });
+
             };
         }
 

@@ -22,7 +22,10 @@ namespace portal_demo_essentials
         public static SettingsHandler Settings;
         public static CompactView FormsCompact;
 
-        private static MemoryMonitor _monitor;
+        public static PrintToConsoleForm FormPrintToConsole;
+        public static DisplayOnPortalGunForm FormDisplayOnPortalGun;
+
+        public static MemoryMonitor Monitor;
 
         /// <summary>
         /// The main entry point for the application.
@@ -44,12 +47,15 @@ namespace portal_demo_essentials
             FormsSettingsAbout = new SettingAboutForm();
             FormsCompact = new CompactView();
 
+            FormPrintToConsole = new PrintToConsoleForm();
+            FormDisplayOnPortalGun = new DisplayOnPortalGunForm();
+
             Settings.LoadSettings();
 
             Thread worker = new Thread(new ThreadStart(() => 
             {
-                _monitor = new MemoryMonitor();
-                _monitor.Start();
+                Monitor = new MemoryMonitor();
+                Monitor.Start();
             }));
             worker.Start();
 

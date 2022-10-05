@@ -37,10 +37,16 @@ namespace portal_demo_essentials.Forms
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.butOpenCompact = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.tabControl3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage2
@@ -77,6 +83,7 @@ namespace portal_demo_essentials.Forms
             // 
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Controls.Add(this.tabPage6);
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Location = new System.Drawing.Point(13, 13);
             this.tabControl2.Name = "tabControl2";
@@ -110,11 +117,22 @@ namespace portal_demo_essentials.Forms
             // 
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(6);
             this.tabPage4.Size = new System.Drawing.Size(634, 443);
             this.tabPage4.TabIndex = 1;
-            this.tabPage4.Text = "Analyze";
+            this.tabPage4.Text = "Parse Demos";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.tabControl3);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(6);
+            this.tabPage6.Size = new System.Drawing.Size(634, 443);
+            this.tabPage6.TabIndex = 3;
+            this.tabPage6.Text = "Game Interactions when Demo finishes";
+            this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // tabPage5
             // 
@@ -125,6 +143,39 @@ namespace portal_demo_essentials.Forms
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "Settings & About";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tabControl3
+            // 
+            this.tabControl3.Controls.Add(this.tabPage7);
+#if DEBUG
+            this.tabControl3.Controls.Add(this.tabPage8);
+#endif
+            this.tabControl3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl3.Location = new System.Drawing.Point(6, 6);
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.SelectedIndex = 0;
+            this.tabControl3.Size = new System.Drawing.Size(622, 431);
+            this.tabControl3.TabIndex = 0;
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(614, 405);
+            this.tabPage7.TabIndex = 0;
+            this.tabPage7.Text = "Printing to Console";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(614, 405);
+            this.tabPage8.TabIndex = 1;
+            this.tabPage8.Text = "Displaying on Portal Gun";
+            this.tabPage8.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -140,11 +191,13 @@ namespace portal_demo_essentials.Forms
             this.tabControl1.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
+            this.tabControl3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
-        #endregion
+#endregion
 
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage1;
@@ -154,6 +207,10 @@ namespace portal_demo_essentials.Forms
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Button butOpenCompact;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TabControl tabControl3;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TabPage tabPage8;
     }
 }
 

@@ -18,19 +18,21 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LiveSplit.Core">
@@ -60,41 +62,47 @@
     <Compile Include="Forms\CompactView.Designer.cs">
       <DependentUpon>CompactView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Components\BrowseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Components\BrowseControl.Designer.cs">
+      <DependentUpon>BrowseControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Components\MinimalTimesForm.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Components\MinimalTimesForm.Designer.cs">
       <DependentUpon>MinimalTimesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Components\PathBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Components\PathBox.Designer.cs">
-      <DependentUpon>PathBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\CurrentDemoForm.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\CurrentDemoForm.Designer.cs">
       <DependentUpon>CurrentDemoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CurrentRunForm.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\CurrentRunForm.Designer.cs">
       <DependentUpon>CurrentRunForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Components\DemoDisplayForm.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Components\DemoDisplayForm.Designer.cs">
       <DependentUpon>DemoDisplayForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AnalyzeForm.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\AnalyzeForm.Designer.cs">
       <DependentUpon>AnalyzeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DisplayOnPortalGunForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\DisplayOnPortalGunForm.Designer.cs">
+      <DependentUpon>DisplayOnPortalGunForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -103,19 +111,25 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Components\RunListForm.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Components\RunListForm.Designer.cs">
       <DependentUpon>RunListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PrintToConsoleForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\PrintToConsoleForm.Designer.cs">
+      <DependentUpon>PrintToConsoleForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SettingAboutForm.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\SettingAboutForm.Designer.cs">
       <DependentUpon>SettingAboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Components\TimesForm.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Components\TimesForm.Designer.cs">
       <DependentUpon>TimesForm.cs</DependentUpon>
@@ -124,18 +138,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsHandler.cs" />
     <Compile Include="Source\MemoryMonitor.cs" />
+    <Compile Include="Source\Texture.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="VTFLib.cs" />
+    <Compile Include="WinAPI.cs" />
     <EmbeddedResource Include="Forms\AnalyzeForm.resx">
       <DependentUpon>AnalyzeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CompactView.resx">
       <DependentUpon>CompactView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Components\BrowseControl.resx">
+      <DependentUpon>BrowseControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Components\MinimalTimesForm.resx">
       <DependentUpon>MinimalTimesForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Components\PathBox.resx">
-      <DependentUpon>PathBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CurrentDemoForm.resx">
       <DependentUpon>CurrentDemoForm.cs</DependentUpon>
@@ -146,11 +163,17 @@
     <EmbeddedResource Include="Forms\Components\DemoDisplayForm.resx">
       <DependentUpon>DemoDisplayForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DisplayOnPortalGunForm.resx">
+      <DependentUpon>DisplayOnPortalGunForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Components\RunListForm.resx">
       <DependentUpon>RunListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PrintToConsoleForm.resx">
+      <DependentUpon>PrintToConsoleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingAboutForm.resx">
       <DependentUpon>SettingAboutForm.cs</DependentUpon>

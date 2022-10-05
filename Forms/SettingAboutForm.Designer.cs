@@ -32,6 +32,8 @@ namespace portal_demo_essentials.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingAboutForm));
             this.gSettings = new System.Windows.Forms.GroupBox();
             this.tabSettings = new System.Windows.Forms.TableLayoutPanel();
+            this.boxMapOrderFile = new portal_demo_essentials.Forms.Components.BrowseControl();
+            this.chkZerothTick = new System.Windows.Forms.CheckBox();
             this.gAbout = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -46,6 +48,7 @@ namespace portal_demo_essentials.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.gSettings.SuspendLayout();
+            this.tabSettings.SuspendLayout();
             this.gAbout.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -66,16 +69,40 @@ namespace portal_demo_essentials.Forms
             // 
             this.tabSettings.ColumnCount = 1;
             this.tabSettings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tabSettings.Controls.Add(this.boxMapOrderFile, 0, 1);
+            this.tabSettings.Controls.Add(this.chkZerothTick, 0, 0);
             this.tabSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabSettings.Location = new System.Drawing.Point(3, 16);
             this.tabSettings.Name = "tabSettings";
-            this.tabSettings.RowCount = 2;
-            this.tabSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tabSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tabSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tabSettings.RowCount = 3;
+            this.tabSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tabSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tabSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tabSettings.Size = new System.Drawing.Size(604, 242);
             this.tabSettings.TabIndex = 0;
+            // 
+            // boxMapOrderFile
+            // 
+            this.boxMapOrderFile.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.boxMapOrderFile.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.boxMapOrderFile.Filter = null;
+            this.boxMapOrderFile.Location = new System.Drawing.Point(3, 30);
+            this.boxMapOrderFile.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.boxMapOrderFile.Name = "boxMapOrderFile";
+            this.boxMapOrderFile.PathName = "Map Order File";
+            this.boxMapOrderFile.Size = new System.Drawing.Size(500, 30);
+            this.boxMapOrderFile.TabIndex = 0;
+            // 
+            // chkZerothTick
+            // 
+            this.chkZerothTick.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.chkZerothTick.AutoSize = true;
+            this.chkZerothTick.Location = new System.Drawing.Point(3, 6);
+            this.chkZerothTick.Name = "chkZerothTick";
+            this.chkZerothTick.Size = new System.Drawing.Size(112, 17);
+            this.chkZerothTick.TabIndex = 1;
+            this.chkZerothTick.Text = "Count Zeroth Tick";
+            this.chkZerothTick.UseVisualStyleBackColor = true;
             // 
             // gAbout
             // 
@@ -231,10 +258,11 @@ namespace portal_demo_essentials.Forms
             this.Controls.Add(this.gAbout);
             this.Controls.Add(this.gSettings);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SettingAboutForm";
             this.Text = "SettingAboutForm";
             this.gSettings.ResumeLayout(false);
+            this.tabSettings.ResumeLayout(false);
+            this.tabSettings.PerformLayout();
             this.gAbout.ResumeLayout(false);
             this.gAbout.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -262,5 +290,7 @@ namespace portal_demo_essentials.Forms
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label7;
+        private Components.BrowseControl boxMapOrderFile;
+        private System.Windows.Forms.CheckBox chkZerothTick;
     }
 }

@@ -16,7 +16,7 @@ using portal_demo_essentials.Forms.Components;
 
 namespace portal_demo_essentials.Forms
 {
-    public partial class CurrentRunForm : Form
+    public partial class CurrentRunForm : UserControl
     {
         public RunListForm Run = new RunListForm(true);
         private TimesForm _timer = new TimesForm();
@@ -24,9 +24,6 @@ namespace portal_demo_essentials.Forms
         public CurrentRunForm()
         {
             InitializeComponent();
-            TopLevel = false;
-            Visible = true;
-            Location = new Point(0, 0);
 
             Run.Size = panRuns.Size;
             _timer.Size = panTimer.Size;
@@ -35,9 +32,13 @@ namespace portal_demo_essentials.Forms
 
             FinishDemoRecording += (object s, CommonEventArgs e) =>
             {
-                ThreadAction(this, () =>
+                Run.ThreadAction(() =>
                 {
-                    Run.Init(((DemoFile)e.Data["demo"]).FilePath);
+                    Run.Init(((DemoFile)e.Data["demo"]).FilePath, false);
+                });
+
+                _timer.ThreadAction(() =>
+                {
                     _timer.SetTime(Run.TotalTicks);
                     _timer.Flash();
                 });
@@ -45,7 +46,7 @@ namespace portal_demo_essentials.Forms
 
             BeginDemoRecording += (object s, CommonEventArgs e) =>
             {
-                ThreadAction(this, () =>
+                Run.ThreadAction(() =>
                 {
                 if (Path.GetDirectoryName((string)e.Data["path"]) != Run.FilePath)
                     Run.Reset();
@@ -54,7 +55,7 @@ namespace portal_demo_essentials.Forms
 
             CurrentDemoTime += (object s, CommonEventArgs e) =>
             {
-                ThreadAction(this, () =>
+                _timer.ThreadAction(() =>
                 {
                     _timer.SetTime(Run.TotalTicks + (int)e.Data["time"]);
                 });

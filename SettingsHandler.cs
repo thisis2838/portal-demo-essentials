@@ -38,6 +38,9 @@ namespace portal_demo_essentials
             }
         }
 
+        public void Subscribe(string name, Action<string> set, Func<string> get)
+            => SubscribedSettings.Add(new SettingEntry(name, set, get));
+
         public string GetSetting(string name)
         {
             if (_settings.Count == 0)

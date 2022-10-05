@@ -11,8 +11,15 @@ using static portal_demo_essentials.Defaults;
 
 namespace portal_demo_essentials.Forms.Components
 {
-    public partial class MinimalTimesForm : Form
+    public partial class MinimalTimesForm : UserControl
     {
+        public bool Minified = false;
+        public class ScaleChangedEventArgs : EventArgs
+        {
+            public bool Minified;
+        }
+        public event EventHandler<ScaleChangedEventArgs> ScaleChanged;
+
         private ControlFlasher _tickFlasher;
         private ControlFlasher _humanFlasher;
         private List<(Label, Control)> _centerList = new List<(Label, Control)>();
@@ -21,9 +28,6 @@ namespace portal_demo_essentials.Forms.Components
         {
             InitializeComponent();
 
-            TopLevel = false;
-            Visible = true;
-            Location = new Point(0, 0);
 
             _centerList = new List<(Label, Control)>()
             {
@@ -48,12 +52,13 @@ namespace portal_demo_essentials.Forms.Components
             {
                 labTimeHuman.Font = new System.Drawing.Font("Consolas", 10f, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
                 labTimeTicks.Font = new System.Drawing.Font("Consolas", 10f, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+                ScaleChanged?.Invoke(null, new ScaleChangedEventArgs() { Minified = true });
             }
             else
             {
                 labTimeHuman.Font = new System.Drawing.Font("Consolas", 20.25f, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
                 labTimeTicks.Font = new System.Drawing.Font("Consolas", 20.25f, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-
+                ScaleChanged?.Invoke(null, new ScaleChangedEventArgs() { Minified = false });
             }
         }
 
@@ -66,8 +71,8 @@ namespace portal_demo_essentials.Forms.Components
 
         public void Flash()
         {
-            _tickFlasher.FlashBackColor(750, Color.Green);
-            _humanFlasher.FlashBackColor(750, Color.Green);
+            _tickFlasher.FlashBackColor(Defaults.FlashDuration, Color.Green);
+            _humanFlasher.FlashBackColor(Defaults.FlashDuration, Color.Green);
         }
 
         public void SetTime(long ticks)

@@ -81,7 +81,6 @@ namespace portal_demo_essentials.Forms
             this.Controls.Add(this.panDeny);
             this.Controls.Add(this.gCurDemo);
             this.Controls.Add(this.gPrevDemo);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CurrentDemoForm";
             this.Text = "Form1";
             this.panDeny.ResumeLayout(false);

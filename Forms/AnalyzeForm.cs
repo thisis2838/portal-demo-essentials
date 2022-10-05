@@ -11,16 +11,13 @@ using portal_demo_essentials.Forms.Components;
 
 namespace portal_demo_essentials.Forms
 {
-    public partial class AnalyzeForm : Form
+    public partial class AnalyzeForm : UserControl
     {
         private RunListForm _listForm = new RunListForm();
         private TimesForm _timer = new TimesForm();
         public AnalyzeForm()
         {
             InitializeComponent();
-            TopLevel = false;
-            Visible = true;
-            Location = new Point(0, 0);
 
             panLists.Controls.Add(_listForm);
             panTimer.Controls.Add(_timer);

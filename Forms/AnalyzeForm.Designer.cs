@@ -161,7 +161,6 @@ namespace portal_demo_essentials.Forms
             this.ClientSize = new System.Drawing.Size(634, 443);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AnalyzeForm";
             this.Text = "Form1";
             this.groupBox3.ResumeLayout(false);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace portal_demo_essentials
+namespace portal_demo_essentials.Globals
 {
     public static class Events
     {

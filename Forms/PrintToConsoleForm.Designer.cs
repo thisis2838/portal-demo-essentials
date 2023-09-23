@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PrintToConsoleForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.chkEnabled = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbDemoParser = new System.Windows.Forms.ComboBox();
             this.boxPath = new portal_demo_essentials.Forms.Components.BrowseControl();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -45,13 +49,16 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.cmbDemoParser, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.boxPath, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 218F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(614, 405);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -101,6 +108,27 @@
             this.boxPath.Size = new System.Drawing.Size(508, 30);
             this.boxPath.TabIndex = 3;
             // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Location = new System.Drawing.Point(3, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(602, 66);
+            this.label2.TabIndex = 5;
+            this.label2.Text = resources.GetString("label2.Text");
+            // 
+            // groupBox1
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.groupBox1, 2);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(3, 317);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(608, 85);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Description";
+            // 
             // PrintToConsoleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -111,6 +139,7 @@
             this.Size = new System.Drawing.Size(614, 405);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -122,5 +151,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbDemoParser;
         private Components.BrowseControl boxPath;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label2;
     }
 }

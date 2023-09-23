@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using portal_demo_essentials.Forms.Components;
+using portal_demo_essentials.Globals;
 using static portal_demo_essentials.Program;
 
 namespace portal_demo_essentials.Forms
@@ -30,7 +31,11 @@ namespace portal_demo_essentials.Forms
 
             Settings.Subscribe(
                 "zeroth_tick",
-                s => { if (bool.TryParse(s, out bool e)) chkZerothTick.Checked = e; },
+                s => 
+                {
+                    if (bool.TryParse(s, out bool e)) chkZerothTick.Checked = e;
+                    else chkZerothTick.Checked = true;
+                },
                 () => chkZerothTick.Checked.ToString());
         }
 

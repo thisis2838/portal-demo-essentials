@@ -1,4 +1,6 @@
-﻿using System;
+﻿using portal_demo_essentials.Globals;
+using portal_demo_essentials.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static portal_demo_essentials.Defaults;
+using static portal_demo_essentials.Globals.Defaults;
 
 namespace portal_demo_essentials.Forms.Components
 {
@@ -84,7 +86,7 @@ namespace portal_demo_essentials.Forms.Components
             else
             {
                 labTimeTicks.Text = ticks.ToString();
-                labTimeHuman.Text = Utils.GetTimeString(ticks);
+                labTimeHuman.Text = Helpers.GetTimeString(ticks);
             }
 
             CenterText();
@@ -92,7 +94,7 @@ namespace portal_demo_essentials.Forms.Components
 
         private void CenterText()
         {
-            _centerList.ForEach(x => x.Item1.Location = Utils.CenterLabel(x.Item1, x.Item2));
+            _centerList.ForEach(x => x.Item1.Location = Helpers.CenterLabel(x.Item1, x.Item2));
         }
     }
 }

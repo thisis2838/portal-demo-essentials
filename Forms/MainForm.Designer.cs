@@ -38,9 +38,9 @@ namespace portal_demo_essentials.Forms
             this.butOpenCompact = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -131,25 +131,12 @@ namespace portal_demo_essentials.Forms
             this.tabPage6.Padding = new System.Windows.Forms.Padding(6);
             this.tabPage6.Size = new System.Drawing.Size(634, 443);
             this.tabPage6.TabIndex = 3;
-            this.tabPage6.Text = "Game Interactions when Demo finishes";
+            this.tabPage6.Text = "Post-Demo Actions";
             this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(634, 443);
-            this.tabPage5.TabIndex = 2;
-            this.tabPage5.Text = "Settings & About";
-            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // tabControl3
             // 
             this.tabControl3.Controls.Add(this.tabPage7);
-#if DEBUG
-            this.tabControl3.Controls.Add(this.tabPage8);
-#endif
             this.tabControl3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl3.Location = new System.Drawing.Point(6, 6);
             this.tabControl3.Name = "tabControl3";
@@ -166,6 +153,16 @@ namespace portal_demo_essentials.Forms
             this.tabPage7.TabIndex = 0;
             this.tabPage7.Text = "Printing to Console";
             this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(634, 443);
+            this.tabPage5.TabIndex = 2;
+            this.tabPage5.Text = "Settings and About";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // tabPage8
             // 

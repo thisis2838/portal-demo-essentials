@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using portal_demo_essentials.Demo;
 using portal_demo_essentials.Forms;
 using portal_demo_essentials.Source;
+using portal_demo_essentials.Utils;
 
 namespace portal_demo_essentials
 {
@@ -23,7 +24,7 @@ namespace portal_demo_essentials
         public static CompactView FormsCompact;
 
         public static PrintToConsoleForm FormPrintToConsole;
-        public static DisplayOnPortalGunForm FormDisplayOnPortalGun;
+        //public static DisplayOnPortalGunForm FormDisplayOnPortalGun;
 
         public static MemoryMonitor Monitor;
 
@@ -48,7 +49,7 @@ namespace portal_demo_essentials
             FormsCompact = new CompactView();
 
             FormPrintToConsole = new PrintToConsoleForm();
-            FormDisplayOnPortalGun = new DisplayOnPortalGunForm();
+            //FormDisplayOnPortalGun = new DisplayOnPortalGunForm();
 
             Settings.LoadSettings();
 

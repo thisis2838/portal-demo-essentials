@@ -7,12 +7,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static portal_demo_essentials.Utils;
+using static portal_demo_essentials.Utils.Helpers;
 using static portal_demo_essentials.Program;
-using static portal_demo_essentials.Events;
+using static portal_demo_essentials.Globals.Events;
 using System.Windows.Forms;
 using portal_demo_essentials.Source;
 using portal_demo_essentials.Demo;
+using portal_demo_essentials.Globals;
+using portal_demo_essentials.Utils;
 
 namespace portal_demo_essentials.Forms
 {

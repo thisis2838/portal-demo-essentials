@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using portal_demo_essentials.Forms.Components;
+using portal_demo_essentials.Globals;
 
 namespace portal_demo_essentials.Forms
 {

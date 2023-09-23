@@ -1,4 +1,5 @@
-﻿using System;
+﻿using portal_demo_essentials.Globals;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -11,9 +12,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace portal_demo_essentials
+namespace portal_demo_essentials.Utils
 {
-    public static class Utils
+    public static class Helpers
     {
         public static Point CenterLabel(Label lab, Control control, bool horiz = true, bool vert = true)
         {
@@ -185,7 +186,7 @@ namespace portal_demo_essentials
                         _control.BackColor = orig;
                         return;
                     }
-                    _control.BackColor = Utils.BiasedAverageColor(orig, color, (int)(sw.ElapsedMilliseconds / (float)time * 100));
+                    _control.BackColor = Helpers.BiasedAverageColor(orig, color, (int)(sw.ElapsedMilliseconds / (float)time * 100));
                     Thread.Sleep(10);
                 }
 

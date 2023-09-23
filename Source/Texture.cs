@@ -1,4 +1,5 @@
-﻿using System;
+﻿using portal_demo_essentials.Utils;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static portal_demo_essentials.VTFLib;
+using static portal_demo_essentials.Source.VTFLib;
 
 namespace portal_demo_essentials.Source
 {
@@ -68,7 +69,7 @@ namespace portal_demo_essentials.Source
             const int margin = 5;
 
             var size = TextRenderer.MeasureText(text, f);
-            var actualSize = Utils.RotatedSize(size, angle);
+            var actualSize = Helpers.RotatedSize(size, angle);
 
             Bitmap b = new Bitmap(actualSize.Width, actualSize.Height);
             b.MakeTransparent();
@@ -79,7 +80,7 @@ namespace portal_demo_essentials.Source
             g.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
 
-            var rect = Utils.RotatedOriginAnchoredRect(size, angle);
+            var rect = Helpers.RotatedOriginAnchoredRect(size, angle);
             var points = new List<Point>() { rect.A, rect.B, rect.C, rect.D };
 
             g.TranslateTransform(-Math.Min(points.Min(X => X.X), 0), points.Max(X => X.Y));

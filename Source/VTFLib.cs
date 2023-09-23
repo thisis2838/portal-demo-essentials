@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace portal_demo_essentials
+namespace portal_demo_essentials.Source
 {
     public static class VTFLib
     {

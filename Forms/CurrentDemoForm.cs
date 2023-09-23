@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static portal_demo_essentials.Events;
-using static portal_demo_essentials.Utils;
+using static portal_demo_essentials.Globals.Events;
+using static portal_demo_essentials.Utils.Helpers;
 using portal_demo_essentials.Forms.Components;
-
+using portal_demo_essentials.Globals;
 
 namespace portal_demo_essentials.Forms
 {

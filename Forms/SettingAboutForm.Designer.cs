@@ -89,6 +89,7 @@ namespace portal_demo_essentials.Forms
             this.boxMapOrderFile.Location = new System.Drawing.Point(3, 30);
             this.boxMapOrderFile.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.boxMapOrderFile.Name = "boxMapOrderFile";
+            this.boxMapOrderFile.Path = "";
             this.boxMapOrderFile.PathName = "Map Order File";
             this.boxMapOrderFile.Size = new System.Drawing.Size(500, 30);
             this.boxMapOrderFile.TabIndex = 0;
@@ -97,6 +98,8 @@ namespace portal_demo_essentials.Forms
             // 
             this.chkZerothTick.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chkZerothTick.AutoSize = true;
+            this.chkZerothTick.Checked = true;
+            this.chkZerothTick.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkZerothTick.Location = new System.Drawing.Point(3, 6);
             this.chkZerothTick.Name = "chkZerothTick";
             this.chkZerothTick.Size = new System.Drawing.Size(112, 17);
@@ -254,12 +257,11 @@ namespace portal_demo_essentials.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(634, 443);
             this.Controls.Add(this.gAbout);
             this.Controls.Add(this.gSettings);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "SettingAboutForm";
-            this.Text = "SettingAboutForm";
+            this.Size = new System.Drawing.Size(634, 443);
             this.gSettings.ResumeLayout(false);
             this.tabSettings.ResumeLayout(false);
             this.tabSettings.PerformLayout();

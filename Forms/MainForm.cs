@@ -1,4 +1,5 @@
-﻿using System;
+﻿using portal_demo_essentials.Globals;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -47,7 +48,7 @@ namespace portal_demo_essentials.Forms
             this.tabPage2.Controls.Add(FormsCurRun);
             this.tabPage5.Controls.Add(FormsSettingsAbout);
             this.tabPage7.Controls.Add(FormPrintToConsole);
-            this.tabPage8.Controls.Add(FormDisplayOnPortalGun);
+            //this.tabPage8.Controls.Add(FormDisplayOnPortalGun);
         }
 
         private void butOpenCompact_Click(object sender, EventArgs e)

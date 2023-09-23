@@ -10,6 +10,7 @@ using static System.BitConverter;
 using static System.Globalization.CultureInfo;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using portal_demo_essentials.Globals;
 
 namespace portal_demo_essentials.Demo
 {

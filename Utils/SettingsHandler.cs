@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace portal_demo_essentials
+namespace portal_demo_essentials.Utils
 {
     public class SettingsHandler
     {

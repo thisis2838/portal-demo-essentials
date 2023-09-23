@@ -1,4 +1,5 @@
-﻿using System;
+﻿using portal_demo_essentials.Globals;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static portal_demo_essentials.Defaults;
+using static portal_demo_essentials.Globals.Defaults;
 
 namespace portal_demo_essentials.Forms.Components
 {

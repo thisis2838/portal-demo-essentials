@@ -1,4 +1,6 @@
 ﻿using portal_demo_essentials.Demo;
+using portal_demo_essentials.Globals;
+using portal_demo_essentials.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,13 +16,10 @@ namespace portal_demo_essentials.Forms.Components
 {
     public partial class RunListForm : UserControl
     {
-        private long _totalTicks = 0;
         public long TotalTicks
         {
-            get
-            {
-                return _totalTicks;
-            }
+            get;
+            private set;
         }
         public EventHandler<CommonEventArgs> SelectedCell;
         public string FilePath { get; private set; } = "";
@@ -103,20 +102,20 @@ namespace portal_demo_essentials.Forms.Components
             _demos.Clear();
             _maps.Clear();
 
-            _totalTicks = 0;
+            TotalTicks = 0;
             PopulateDemos(_demos.ToArray());
 
             Refresh();
         }
 
-        public void Refresh()
+        public new void Refresh()
         {
             _maps.Clear();
             _demos.ForEach(x => x.Refresh());
             _demos.GroupBy(x => x.MapName).Select(x => x.ToList()).ToList().ForEach(x => _maps.Add(new MapDemoSegment(x)));
-            if (DemoCount > 1)
-                _totalTicks = _demos.Sum(x => x.AdjustedTicks);
-            else _totalTicks = _demos.FirstOrDefault()?.AdjustedTicks ?? 0;
+
+            if (DemoCount > 1) TotalTicks = _demos.Sum(x => x.AdjustedTicks);
+            else TotalTicks = _demos.FirstOrDefault()?.AdjustedTicks ?? 0;
         }
 
         private void Init(List<DemoFile> files, bool forceReset = true)
@@ -186,11 +185,11 @@ namespace portal_demo_essentials.Forms.Components
         private void PopulateDemos(params DemoFile[] files)
         {
             dgvDemos.Rows.Clear(); 
-            dgvDemos.Rows.Add($"-- TOTAL -- {files.Count()} demo(s)", $"{_maps.Count} map(s)", TotalTicks.ToString(), Utils.GetTimeString(TotalTicks));
+            dgvDemos.Rows.Add($"-- TOTAL -- {files.Count()} demo(s)", $"{_maps.Count} map(s)", TotalTicks.ToString(), Helpers.GetTimeString(TotalTicks));
 
             files.ToList().ForEach(x => 
             {
-                dgvDemos.Rows.Add(x.Name, x.MapName, x.AdjustedTicks.ToString(), Utils.GetTimeString(x.AdjustedTicks));
+                dgvDemos.Rows.Add(x.Name, x.MapName, x.AdjustedTicks.ToString(), Helpers.GetTimeString(x.AdjustedTicks));
             });
 
             if (_autoSelectLast && dgvDemos.Rows.Count > 0)
@@ -202,11 +201,11 @@ namespace portal_demo_essentials.Forms.Components
         private void PopulateMaps()
         {
             dgvMaps.Rows.Clear();
-            dgvMaps.Rows.Add($"-- TOTAL -- {_maps.Count()} map(s)", TotalTicks.ToString(), Utils.GetTimeString(TotalTicks));
+            dgvMaps.Rows.Add($"-- TOTAL -- {_maps.Count()} map(s)", TotalTicks.ToString(), Helpers.GetTimeString(TotalTicks));
 
             _maps.ToList().ForEach(x =>
             {
-                dgvMaps.Rows.Add(x.Map, x.TotalTicks.ToString(), Utils.GetTimeString(x.TotalTicks));
+                dgvMaps.Rows.Add(x.Map, x.TotalTicks.ToString(), Helpers.GetTimeString(x.TotalTicks));
             });
 
             if (_autoSelectLast && dgvMaps.Rows.Count > 0)

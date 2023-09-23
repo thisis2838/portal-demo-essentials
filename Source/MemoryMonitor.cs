@@ -6,11 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using LiveSplit.ComponentUtil;
 using portal_demo_essentials.Demo;
-using static portal_demo_essentials.Events;
-using static portal_demo_essentials.Defaults;
+using portal_demo_essentials.Globals;
+using static portal_demo_essentials.Globals.Events;
+using static portal_demo_essentials.Globals.Defaults;
 using System.ComponentModel;
+using portal_demo_essentials.Utils;
 
 namespace portal_demo_essentials.Source
 {
